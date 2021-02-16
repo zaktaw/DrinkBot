@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const config = require('./hiddenConfig.json');
 const admin = require('./admin.js');
+const database = require('./database/database.js');
 const bot = new Discord.Client();
 
 const DRINKS_CHANNEL_ID = config.drinksChannelID;
@@ -9,10 +10,12 @@ bot.on('ready', () => {
     console.log("Bot is online!");
 }); 
 
+database.initDB();
+
 bot.login(config.token);
 
 bot.on('message', (msg) => {
-
+    console.log("message 1");
     let args = msg.content.split(" ");
 
     // Prevent spam from bot
@@ -20,7 +23,7 @@ bot.on('message', (msg) => {
     if (!msg.guild) return; // bot will only reply if message is sent in the guild (server)
 
     if (msg.channel.id != DRINKS_CHANNEL_ID) return; //Bot will only reply in specified channel
-
+    
     // handle admin commands
     // author of message has to have admin permissions and the first argument of the command needs to be 'admin'
     if (msg.member.hasPermission('ADMINISTRATOR') && args[0].toLowerCase() == 'admin') {
@@ -36,9 +39,18 @@ bot.on('message', (msg) => {
                 admin.bulkDelete(msg, args[2]);
                 break;
 
-            default :
-                msg.channel.send(`"${args[1]}" is an invalid command.`);
-    }   
+            case 'get' :
+                database.getDrinks();
+                break;
 
+            default :
+                msg.channel.send(`"${args[1]}" is an invalid admin command.`);
+        }   
+    }
+
+    else {
+        // add drink to database, then get drinks
+        database.addDrink(msg.content, msg.author.username);
+        setTimeout(() => database.getDrinks(), 5000); // wait for drink to be added. NOT ideal, use callbacks or promises instead!
     }
 });
