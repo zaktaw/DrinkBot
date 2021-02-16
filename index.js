@@ -45,6 +45,7 @@ bot.on('message', (msg) => {
 
             case 'reset' :
                 database.resetDatabase();
+                admin.resetEmbed(msg);
                 break;
 
             default :

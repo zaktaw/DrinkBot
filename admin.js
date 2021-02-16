@@ -2,14 +2,13 @@ const Discord = require('discord.js');
 const fs = require('fs'); 
 const config = require('./hiddenConfig.json');
 
+const EMBED = new Discord.MessageEmbed()
+    .setTitle('Dinks consumed')
+    .setDescription('No drinks consumed')
+    .setColor(0xE5FF00);
+
 function makeEmbed(msg) {
-
-    const embed = new Discord.MessageEmbed()
-        .setTitle('Dinks consumed')
-        .setDescription('No drinks consumed')
-        .setColor(0xE5FF00);
-
-    msg.channel.send(embed) // send embed to channel
+    msg.channel.send(EMBED) // send embed to channel
         .then(message => { // update the embedID in the config file with the ID of this embed
             let configFile = config;
             configFile.embedID = message.id;
@@ -24,11 +23,17 @@ function bulkDelete(msg, noOfMessages) {
         .catch(err => console.log(err)); // throws error if attempting to delete messages older than two weeks
 }
 
-function resetEmbed() {
-    
+function resetEmbed(msg) {
+    msg.channel.messages.fetch(config.embedID)
+        .then((message) => {
+            let embed = EMBED;
+            embed.addField('Edited', 'some name');
+            message.edit(embed);
+        });
 }
 
 module.exports = {
     makeEmbed,
-    bulkDelete
+    bulkDelete,
+    resetEmbed
 }
