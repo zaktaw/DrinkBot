@@ -15,7 +15,7 @@ database.initDB();
 bot.login(config.token);
 
 bot.on('message', (msg) => {
-    console.log("message 1");
+    
     let args = msg.content.split(" ");
 
     // Prevent spam from bot
@@ -43,6 +43,10 @@ bot.on('message', (msg) => {
                 database.getDrinks();
                 break;
 
+            case 'reset' :
+                database.resetDatabase();
+                break;
+
             default :
                 msg.channel.send(`"${args[1]}" is an invalid admin command.`);
         }   
@@ -50,7 +54,12 @@ bot.on('message', (msg) => {
 
     else {
         // add drink to database, then get drinks
-        database.addDrink(msg.content, msg.author.username);
-        setTimeout(() => database.getDrinks(), 5000); // wait for drink to be added. NOT ideal, use callbacks or promises instead!
+        addDrink(msg.content, msg.author.username);
     }
 });
+
+async function addDrink(title, username) {
+    await database.addDrink(title, username);
+    let drinks = await database.getDrinks();
+    drinks.forEach(a => console.log(a.user + " added " + a.title));
+}

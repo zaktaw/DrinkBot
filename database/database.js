@@ -11,23 +11,23 @@ function initDB() {
   });
 }
 
-function addDrink(title, user) {
+async function addDrink(title, user) {
 
   const drink = new Drink({ title: title, user: user });
 
-  drink.save(function(err, drink) {
+  await drink.save(function(err, drink) {
     if (err) return console.error(err);
-    console.log(drink.title + " was added");
-    return true;
+    console.log("ADD: " + drink.user + " added " + drink.title);
   });
+
+  drinks = getDrinks();
 }
 
-function getDrinks() {
-  Drink.find((err, drinks) => {
-    if (err) return console.error(err);
-    console.log(drinks);
-  });
-}
+function getDrinks() {return Drink.find();}
 
-module.exports = {initDB, addDrink, getDrinks}
+function resetDatabase() {
+  Drink.deleteMany({}).then(() => console.log('items delted')); // {} = delete everything
+} 
+
+module.exports = {initDB, addDrink, getDrinks, resetDatabase}
 

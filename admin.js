@@ -24,6 +24,10 @@ function bulkDelete(msg, noOfMessages) {
         .catch(err => console.log(err)); // throws error if attempting to delete messages older than two weeks
 }
 
+function resetEmbed() {
+    
+}
+
 module.exports = {
     makeEmbed,
     bulkDelete
