@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const config = require('./hiddenConfig.json');
 const admin = require('./admin.js');
+const user = require('./user.js');
 const database = require('./database/database.js');
 const bot = new Discord.Client();
 
@@ -53,14 +54,6 @@ bot.on('message', (msg) => {
         }   
     }
 
-    else {
-        // add drink to database, then get drinks
-        addDrink(msg.content, msg.author.username);
-    }
+    else user.addDrink(msg);
 });
 
-async function addDrink(title, username) {
-    await database.addDrink(title, username);
-    let drinks = await database.getDrinks();
-    drinks.forEach(a => console.log(a.user + " added " + a.title));
-}
