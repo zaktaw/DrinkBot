@@ -9,12 +9,15 @@ const EMBED = new Discord.MessageEmbed()
 
 
 async function addDrink(msg) {
-    let title = msg.content;
-    let user = msg.author.username;
+    let user = msg.author;
+    let drink = msg.content;
 
-    await database.addDrink(title, user);  
+    await database.addDrink(user, drink);  
+    database.getDrinks(drinks => drinks.forEach(d => console.log(d)));
+    /*
     database.getDrinks()
         .then(drinks => updateEmbed(drinks, msg));
+        */
 }
 
 function updateEmbed(drinks, msg) {

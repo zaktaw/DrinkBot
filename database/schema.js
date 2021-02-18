@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 // define schema
-const drinkSchema = mongoose.Schema({
-    title: String,
-    user: String
+const userSchema = mongoose.Schema({
+    _id: String, // Discord user ID
+    name: String, // Discord username
+    drinks: [String] // array of user drinks
 });
 
 // export model
-module.exports = mongoose.model('Drink', drinkSchema);
+module.exports = mongoose.model('User', userSchema);
 
