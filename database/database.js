@@ -12,9 +12,6 @@ function initDB() {
 
 
 async function addDrink(user, drink) {
-
-  console.log('adding drink: ' + drink);
-
   await User.findById({ _id: user.id }, async function(err, doc) {
     if (err) {
       console.log(err);
@@ -42,7 +39,7 @@ async function getUsers() {
 }
 
 function resetDatabase() {
-  User.deleteMany({}).then(() => console.log('items delted')); // {} = delete everything
+  User.deleteMany({}).then(() => console.log('Database reset')); // {} = delete everything
 }   
 
 module.exports = {initDB, addDrink, resetDatabase, getUsers}

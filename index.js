@@ -24,7 +24,7 @@ bot.on('message', (msg) => {
     if (!msg.guild) return; // bot will only reply if message is sent in the guild (server)
     
     if (msg.channel.id != DRINKS_CHANNEL_ID) return; //Bot will only reply in specified channel
-    
+
     // handle admin commands
     // author of message has to have admin permissions and the first argument of the command needs to be 'admin'
     if (msg.member.hasPermission('ADMINISTRATOR') && args[0].toLowerCase() == 'admin') {
@@ -40,20 +40,20 @@ bot.on('message', (msg) => {
                 admin.bulkDelete(msg, args[2]);
                 break;
 
-            case 'get' :
-                database.getDrinks();
-                break;
-
             case 'reset' :
                 database.resetDatabase();
                 admin.resetEmbed(msg);
                 break;
 
             default :
-                msg.channel.send(`"${args[1]}" is an invalid admin command.`);
+                msg.channel.send(`"${args[1]}" is an invalid admin command.`)
+                    .then(message => message.delete( {timeout: 1000} ))
         }   
     }
 
     else user.addDrink(msg);
+
+    msg.delete()
+        .catch(console.error);
 });
 

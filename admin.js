@@ -29,9 +29,8 @@ function bulkDelete(msg, noOfMessages) {
 function resetEmbed(msg) {
     msg.channel.messages.fetch(config.embedID)
         .then((message) => {
-            let embed = EMBED;
-            embed.addField('Edited', 'some name');
-            message.edit(embed);
+            message.edit(EMBED);
+            msg.channel.send('Database was successfully reset').then(message => message.delete( {timeout: 1000} ))
         });
 }
 
