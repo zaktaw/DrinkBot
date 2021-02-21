@@ -4,7 +4,7 @@ const config = require('./hiddenConfig.json');
 
 // add drink to the database => get all items from database => update embed
 async function addDrink(msg) {
-    let user = msg.author;
+    let user = msg.member;
     let drink = msg.content;
 
     await database.addDrink(user, drink);
@@ -17,7 +17,9 @@ function updateEmbed(users, msg) {
         .setTitle('Dinks consumed')
         .setColor(0xE5FF00);
     
-        users.forEach(user => updatedEmbed.addField(user.name, makeDrinksString(user.drinks)));
+        users.forEach(user => {
+            updatedEmbed.addField(user.name, makeDrinksString(user.drinks))
+        });
 
     msg.channel.messages.fetch(config.embedID)
         .then((message) => message.edit(updatedEmbed));

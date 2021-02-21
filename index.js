@@ -16,7 +16,7 @@ database.initDB();
 bot.login(config.token);
 
 bot.on('message', (msg) => {
-    
+ 
     let args = msg.content.split(" ");
 
     // Prevent spam from bot

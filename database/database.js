@@ -18,7 +18,7 @@ async function addDrink(user, drink) {
     }
 
     if (!doc) {// user does not exist: add user
-      const userDocument = new User({ _id: user.id, name: user.username, drinks: [drink] });
+      const userDocument = new User({ _id: user.id, name: user.displayName, drinks: [drink] });
 
       userDocument.save(function(err) {
         if (err) return console.error(err);});
@@ -26,6 +26,7 @@ async function addDrink(user, drink) {
 
     else { // user exists: add the drink to user's drinks array
       doc.drinks.push(drink);
+      doc.name = user.displayName // update name in case user has changed nickname since last added drink
 
       doc.save(function(err) {if (err) return console.error(err);});
     }
