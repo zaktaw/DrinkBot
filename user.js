@@ -12,12 +12,8 @@ async function addDrink(msg) {
     let user = msg.author;
     let drink = msg.content;
 
-    await database.addDrink(user, drink);  
-    database.getDrinks(drinks => drinks.forEach(d => console.log(d)));
-    /*
-    database.getDrinks()
-        .then(drinks => updateEmbed(drinks, msg));
-        */
+    await database.addDrink(user, drink);
+    database.getDrinks().then(d => console.log(d));
 }
 
 function updateEmbed(drinks, msg) {
@@ -30,5 +26,6 @@ function updateEmbed(drinks, msg) {
 }
 
 module.exports = {
-    addDrink
+    addDrink,
+    updateEmbed
 }

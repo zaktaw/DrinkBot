@@ -11,61 +11,39 @@ function initDB() {
 }
 
 
-function addDrink(user, drink) {
+async function addDrink(user, drink) {
 
   console.log('adding drink: ' + drink);
-  // if user id is in database
-  User.findById({ _id: user.id }, function(err, doc) {
-    console.log('evaluating');
+
+  await User.findById({ _id: user.id }, async function(err, doc) {
     if (err) {
-      console.log('ERROR')
       console.log(err);
     }
 
-    if (!doc) {// user is not in database
-      console.log('User not in DB');
+    if (!doc) {// user does not exist: add user
       const userDocument = new User({ _id: user.id, name: user.username, drinks: [drink] });
 
       userDocument.save(function(err, user) {
-        if (err) return console.error(err);
-        console.log("ADD: " + user.name + " added " + user.drinks);
-      });
+        if (err) return console.error(err);});
     }
 
-    else {
-      console.log('updating');
-      let drinks = doc.drinks;
-      drinks[drinks.length] = drink;
-      doc.drinks = drinks;
-      //doc.drinks[doc.drinks.length] = drink;
+    else { // user exists: add the drink to user's drinks array
+      doc.drinks.push(drink);
+
       doc.save(function(err, user) {
-        if (err) return console.error(err);
-        console.log("UPDATED: " + user.name + " : " + user.drinks);
-      });
+        if (err) return console.error(err);});
     }
   });
 
-  
-    // retrieve document for that user
-    // update document: add drink to array
-  // else
-    // make new document with user id and empty array
-
-  //
-  
-  /*
-  drink.save(function(err, drink) {
-    if (err) return console.error(err);
-    console.log("ADD: " + drink.user + " added " + drink.title);
-  });
-  */
 }
 
-function getDrinks() {return User.find();}
+async function getDrinks() {
+  return User.find({}).lean().exec();
+}
 
 function resetDatabase() {
   User.deleteMany({}).then(() => console.log('items delted')); // {} = delete everything
-} 
+}   
 
-module.exports = {initDB, addDrink, getDrinks, resetDatabase}
+module.exports = {initDB, addDrink, resetDatabase, getDrinks}
 

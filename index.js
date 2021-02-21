@@ -22,7 +22,7 @@ bot.on('message', (msg) => {
     // Prevent spam from bot
     if (msg.author.bot) return; // stops bot from replying to itself
     if (!msg.guild) return; // bot will only reply if message is sent in the guild (server)
-
+    
     if (msg.channel.id != DRINKS_CHANNEL_ID) return; //Bot will only reply in specified channel
     
     // handle admin commands
@@ -31,7 +31,7 @@ bot.on('message', (msg) => {
 
         // Handle arguments given
         switch (args[1].toLowerCase()) {
-
+            
             case 'embed' :
                 admin.makeEmbed(msg);
                 break;

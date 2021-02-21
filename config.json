@@ -1,4 +1,5 @@
 {
     "token": "TOKEN",
-    "drinksChannel": "CHANNEL ID"
+    "drinksChannelID": "CHANNEL_ID",
+    "embedID": "EMBED_ID"
 }

@@ -4,6 +4,8 @@ A Discord bot for virtual parties that allows users to show what they are drinki
 
 ## Installation
 
+Requires Node.js (version 12.0.0 or newer)
+
 ## Setup
 
 ## Usage
