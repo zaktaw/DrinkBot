@@ -37,7 +37,7 @@ async function addDrink(user, drink) {
 
 }
 
-async function getDrinks() {
+async function getUsers() {
   return User.find({}).lean().exec();
 }
 
@@ -45,5 +45,5 @@ function resetDatabase() {
   User.deleteMany({}).then(() => console.log('items delted')); // {} = delete everything
 }   
 
-module.exports = {initDB, addDrink, resetDatabase, getDrinks}
+module.exports = {initDB, addDrink, resetDatabase, getUsers}
 
