@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const config = require('./hiddenConfig.json');
+const config = require('./config.json');
 const admin = require('./admin.js');
 const user = require('./user.js');
 const database = require('./database/database.js');
@@ -33,10 +33,6 @@ bot.on('message', (msg) => {
             
             case 'embed' :
                 admin.makeEmbed(msg);
-                break;
-
-            case 'delete' :
-                admin.bulkDelete(msg, args[2]);
                 break;
 
             case 'reset' :

@@ -1,6 +1,6 @@
 const database = require('./database/database.js');
 const Discord = require('discord.js');
-const config = require('./hiddenConfig.json');
+const config = require('./config.json');
 
 // add drink to the database => get all items from database => update embed
 async function addDrink(msg) {
