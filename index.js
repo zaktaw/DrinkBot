@@ -29,7 +29,6 @@ bot.on('message', (msg) => {
     // author of message has to have admin permissions and the first argument of the command needs to be 'admin'
     if (msg.member.hasPermission('ADMINISTRATOR') && args[0].toLowerCase() == 'admin') {
 
-        // Handle arguments given
         switch (args[1].toLowerCase()) {
             
             case 'embed' :
@@ -51,7 +50,25 @@ bot.on('message', (msg) => {
         }   
     }
 
-    else user.addDrink(msg);
+    // handle messages from users
+    else {
+        
+        switch (args[0].toLowerCase()) {
+
+            // delete user's last drink
+            case 'dl' :
+                user.deleteUserLastDrink(msg);
+                break;
+
+            // delete all drinks from user
+            case 'da' :
+                user.deleteUserAllDrinks(msg);
+                break;
+
+            default :
+                user.addDrink(msg)
+        }
+    }   
 
     msg.delete()
         .catch(console.error);

@@ -2,6 +2,7 @@ const database = require('./database/database.js');
 const Discord = require('discord.js');
 const config = require('./hiddenConfig.json');
 
+// add drink to the database => get all items from database => update embed
 async function addDrink(msg) {
     let user = msg.author;
     let drink = msg.content;
@@ -22,6 +23,7 @@ function updateEmbed(users, msg) {
         .then((message) => message.edit(updatedEmbed));
 }
 
+// make a string of a user's drinks in the following format: 'drink1, drink2, drink2'
 function makeDrinksString(drinks) {
     output = drinks[0];
 
@@ -32,7 +34,19 @@ function makeDrinksString(drinks) {
     return output;
 }
 
+async function deleteUserLastDrink(msg) {
+    await database.deleteUserLastDrink(msg.author);
+    database.getUsers().then(users => updateEmbed(users, msg));
+}
+
+async function deleteUserAllDrinks(msg) {
+    await database.deleteUserAllDrinks(msg.author);
+    database.getUsers().then(users => updateEmbed(users, msg));
+}
+
 module.exports = {
     addDrink,
-    updateEmbed
+    updateEmbed,
+    deleteUserLastDrink,
+    deleteUserAllDrinks
 }
