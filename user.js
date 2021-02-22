@@ -26,9 +26,14 @@ function updateEmbed(users, msg) {
             updatedEmbed.setDescription('No drinks consumed')
         }
         
-
-    msg.channel.messages.fetch(config.embedID)
-        .then((message) => message.edit(updatedEmbed));
+   
+        msg.channel.messages.fetch(config.embedID)
+            .then((message) => message.edit(updatedEmbed))
+            .catch(console.error('This error originated either by attempting to add drinks before an embed ' +
+            'has been created or by attempting to add drinks when embed id has not been updated. To fix this, use command ' +
+            '"admin ambed" in the Discord channel and delete any old embeds.'));
+    
+    
 }
 
 // make a string of a user's drinks in the following format: 'drink1, drink2, drink2'
