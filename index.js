@@ -52,12 +52,12 @@ bot.on('message', (msg) => {
         switch (args[0].toLowerCase()) {
 
             // delete user's last drink
-            case 'dl' :
+            case 'undo' :
                 user.deleteUserLastDrink(msg);
                 break;
 
             // delete all drinks from user
-            case 'da' :
+            case 'deleteall' :
                 user.deleteUserAllDrinks(msg);
                 break;
 

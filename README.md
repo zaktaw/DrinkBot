@@ -59,8 +59,8 @@ To add drinks to the embed simply write the name of the drink in the chat, no pr
 
 Users can delete their with the following commands:
 
-    dl # delete last drink
-    da # delete all drinks
+    undo # delete last drink
+    deleteAll # delete all drinks
 
 To reset the database to inital state (delete all items) use the following command as an admin user:
 
