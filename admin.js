@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const fs = require('fs'); 
 const config = require('./hiddenConfig.json');
+const database = require('./database/database.js');
+const user = require('./user.js');
 
 // initial embed
 const EMBED = new Discord.MessageEmbed()
@@ -11,11 +13,15 @@ const EMBED = new Discord.MessageEmbed()
 // make a new embed on the Discord channel
 function makeEmbed(msg) {
     msg.channel.send(EMBED) // send embed to channel
-        .then(message => { // update the embedID in the config file with the ID of this embed
+        .then(message => { 
+            // update the embedID in the config file with the ID of this embed
             let configFile = config;
             configFile.embedID = message.id;
             configFile = JSON.stringify(configFile);
             fs.writeFileSync('./hiddenConfig.json', configFile);
+
+            // update embed with drinks from database
+            database.getUsers().then(users => user.updateEmbed(users, msg));
         });
 }
 
