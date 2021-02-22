@@ -1,6 +1,6 @@
 const database = require('./database/database.js');
 const Discord = require('discord.js');
-const config = require('./config.json');
+const config = require('./hiddenConfig.json');
 
 // add drink to the database => get all items from database => update embed
 async function addDrink(msg) {
@@ -17,9 +17,15 @@ function updateEmbed(users, msg) {
         .setTitle('Dinks consumed')
         .setColor(0xE5FF00);
     
-        users.forEach(user => {
-            updatedEmbed.addField(user.name, makeDrinksString(user.drinks))
-        });
+        if (users.length > 0) {
+            users.forEach(user => {
+                updatedEmbed.addField(user.name, makeDrinksString(user.drinks))
+            });
+        }
+        else {
+            updatedEmbed.setDescription('No drinks consumed')
+        }
+        
 
     msg.channel.messages.fetch(config.embedID)
         .then((message) => message.edit(updatedEmbed));
