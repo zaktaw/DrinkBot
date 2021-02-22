@@ -25,12 +25,6 @@ function makeEmbed(msg) {
         });
 }
 
-// deletes a specified number of messages from the channel
-function bulkDelete(msg, noOfMessages) {
-    msg.channel.bulkDelete(noOfMessages)
-        .catch(err => console.log(err)); // throws error if attempting to delete messages older than two weeks
-}
-
 // reset embed on the Discord channel back to default
 function resetEmbed(msg) {
     msg.channel.messages.fetch(config.embedID)
@@ -42,6 +36,5 @@ function resetEmbed(msg) {
 
 module.exports = {
     makeEmbed,
-    bulkDelete,
     resetEmbed
 }
