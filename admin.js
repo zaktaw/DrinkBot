@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs'); 
-const config = require('./hiddenConfig.json');
+const config = require('./config.json');
 const database = require('./database/database.js');
 const user = require('./user.js');
 
