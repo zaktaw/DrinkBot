@@ -14,7 +14,7 @@ async function addDrink(msg) {
 function updateEmbed(users, msg) {
     
     const updatedEmbed = new Discord.MessageEmbed()
-        .setTitle('Dinks consumed')
+        .setTitle('Drinks consumed')
         .setColor(0xE5FF00);
     
         if (users.length > 0) {
@@ -29,11 +29,7 @@ function updateEmbed(users, msg) {
    
         msg.channel.messages.fetch(config.embedID)
             .then((message) => message.edit(updatedEmbed))
-            .catch(console.error('This error originated either by attempting to add drinks before an embed ' +
-            'has been created or by attempting to add drinks when embed id has not been updated. To fix this, use command ' +
-            '"admin ambed" in the Discord channel and delete any old embeds.'));
-    
-    
+            .catch((err) => console.error(err));
 }
 
 // make a string of a user's drinks in the following format: 'drink1, drink2, drink2'

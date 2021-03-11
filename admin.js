@@ -6,7 +6,7 @@ const user = require('./user.js');
 
 // initial embed
 const EMBED = new Discord.MessageEmbed()
-    .setTitle('Dinks consumed')
+    .setTitle('Drinks consumed')
     .setDescription('No drinks consumed')
     .setColor(0xE5FF00);
 

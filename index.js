@@ -56,7 +56,7 @@ bot.on('message', (msg) => {
                 user.deleteUserLastDrink(msg);
                 break;
 
-            // delete all drinks from user
+            //delete all drinks from user
             case 'deleteall' :
                 user.deleteUserAllDrinks(msg);
                 break;
