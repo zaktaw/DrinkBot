@@ -1,6 +1,6 @@
 const database = require('./database/database.js');
 const Discord = require('discord.js');
-const config = require('./config.json');
+const embedID = require('./embedID.json');
 
 // add drink to the database => get all items from database => update embed
 async function addDrink(msg) {
@@ -27,9 +27,9 @@ function updateEmbed(users, msg) {
         }
         
    
-        msg.channel.messages.fetch(config.embedID)
+        msg.channel.messages.fetch(embedID.embedID)
             .then((message) => message.edit(updatedEmbed))
-            .catch((err) => console.error(err));
+            .catch(err => console.log(err));
 }
 
 // make a string of a user's drinks in the following format: 'drink1, drink2, drink2'
