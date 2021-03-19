@@ -15,21 +15,13 @@ Requires Node.js (version 12.0.0 or newer), NPM and mongodb.
 
 PartyRoulette is a self hosted bot, so you need to create a new application on Discord Developer Portal (https://discord.com/developers/) to obtain a token for the bot. 
 
-### Edit config.json file
+### Set up environment variables
 
-    config.json
+    export DRINK_BOT_TOKEN="YOUR_TOKEN"
+    export DRINK_BOT_CHANNEL_ID="YOUR_CHANNEL_ID"
 
-    {
-    "token": "TOKEN",
-    "drinksChannelID": "CHANNEL_ID",
-    "embedID": "EMBED_ID"
-    }
-
-1.  token: Remove the TOKEN-placeholder and insert your actual bot token (keep the quotation marks). 
-
-2. drinkChannelID: the bot will only respond to messages in the channel with this ID. The embed that displays the drinks should be made in this channel. Go to your Discord server, copy the ID of your channel (Developer Mode needs to be enabled in Discord) and insert the ID.
-
-3. embedID: leave this field the blank. The bot will update the field automatically when you use the 'admin embed' command.
+Replace YOUR_TOKEN with your actual bot token and YOUR_CHANNEL_ID with the ID of the channel the bot should respond in.
+For Windows users, use set instead of export.
 
 ### Add bot to server
 
